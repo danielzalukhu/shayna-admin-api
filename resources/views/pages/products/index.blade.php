@@ -36,9 +36,10 @@
                                                 <a href="{{ route('products.edit', $product->id) }}" class="btn btn-primary btn-sm">
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
-                                                <form action="{{ route('products.destroy', $product->id) }}" 
-                                                    method="post" 
-                                                    class="d-inline">
+                                                <form   action="{{ route('products.destroy', $product->id) }}" 
+                                                        method="post" 
+                                                        class="d-inline">
+                                                    @csrf
                                                     @method('delete')
                                                     <button class="btn btn-danger btn-sm">
                                                         <i class="fa fa-trash"></i>
@@ -62,3 +63,23 @@
         </div>
     </div>
 @endsection
+
+@push('after-script')
+<script>
+    $(document).ready(function(){
+        $('.confirm-delete').on('click', function (event) {
+            event.preventDefault();
+            const url = $(this).attr('href');
+            swal({
+                title: 'Apakah anda yakin?',
+                text: 'Produk ini akan terhapus secara permanen!',
+                icon: 'warning',
+                buttons: ["Cancel", "Yes!"],
+            }).then(function(value) {
+                if (value) {
+                    window.location.href = url;
+                }
+            });
+        });        
+    });
+</script>

@@ -44,7 +44,7 @@ class ProductController extends Controller
 
         Product::create($data);
         
-        Alert::success('Gatchaaa!', 'Product ' . $request->name . ' berhasil tersimpan');
+        Alert::success('Gatchaaa!', 'Produk ' . $request->name . ' berhasil tersimpan');
         return redirect('products');
     }
 
@@ -67,7 +67,8 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        $product = Product::findOrFail($id);
+        return view('pages.products.edit', compact('product'));
     }
 
     /**
@@ -79,7 +80,15 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->all();
+        $data['slug'] = Str::slug($request->name);
+
+        $item = Product::findOrFail($id);
+        $item->update($data);
+        
+        Alert::success('Gatchaaa!', 'Produk ' . $request->name . ' berhasil di ubah');
+
+        return redirect('products');
     }
 
     /**
@@ -90,6 +99,10 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $item = Product::findOrFail($id);
+        $item->delete();
+
+        Alert::success('Yup!', 'Produk ' . $item->name . ' berhasil di hapus');
+        return redirect('products');
     }
 }
