@@ -30,7 +30,7 @@
                                             <td>Rp. {{ number_format($product->price, 0, ', ', '.') }}</td>
                                             <td>{{ $product->quantity }}</td></td>
                                             <td>
-                                                <a href="{{ route('products.edit', $product->id) }}" class="btn btn-info btn-sm">
+                                                <a href="{{ route('product.galleries', $product->id) }}" class="btn btn-info btn-sm">
                                                     <i class="fa fa-picture-o"></i>
                                                 </a>
                                                 <a href="{{ route('products.edit', $product->id) }}" class="btn btn-primary btn-sm">
@@ -74,7 +74,7 @@
                 title: 'Apakah anda yakin?',
                 text: 'Produk ini akan terhapus secara permanen!',
                 icon: 'warning',
-                buttons: ["Cancel", "Yes!"],
+                buttons: ["Batal", "Ya!"],
             }).then(function(value) {
                 if (value) {
                     window.location.href = url;

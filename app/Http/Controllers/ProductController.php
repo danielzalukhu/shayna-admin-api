@@ -6,10 +6,16 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Http\Requests\ProductRequest;
 use App\Models\Product;
+use App\Models\ProductGallery;
 use Alert;
 
 class ProductController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -78,14 +84,14 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ProductRequest $request, $id)
     {
         $data = $request->all();
         $data['slug'] = Str::slug($request->name);
 
         $item = Product::findOrFail($id);
         $item->update($data);
-        
+
         Alert::success('Gatchaaa!', 'Produk ' . $request->name . ' berhasil di ubah');
 
         return redirect('products');
@@ -102,7 +108,22 @@ class ProductController extends Controller
         $item = Product::findOrFail($id);
         $item->delete();
 
+        ProductGallery::where('product_id', $id)->delete();
+
         Alert::success('Yup!', 'Produk ' . $item->name . ' berhasil di hapus');
         return redirect('products');
+    }
+
+    public function gallery(Request $request, $id)
+    {
+        $product= Product::findOrFail($id);
+        $items = ProductGallery::with('product')
+            ->where('product_id', $id)
+            ->get();
+
+        return view('pages.products.gallery', compact(
+            'product',
+            'items'
+        ));
     }
 }

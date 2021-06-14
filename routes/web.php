@@ -13,7 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Auth::routes(['register' => false]);
+Auth::routes([
+    "register" => false
+]);
 
 Route::get('/', 'DashboardController@index')->name('dashboard'); 
+Route::get('/gallery/product/{id}', 'ProductController@gallery')->name('product.galleries');
 Route::resource('/products', 'ProductController');
+Route::resource('/galleries', 'ProductGalleryController');
