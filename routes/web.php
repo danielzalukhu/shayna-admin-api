@@ -18,6 +18,13 @@ Auth::routes([
 ]);
 
 Route::get('/', 'DashboardController@index')->name('dashboard'); 
-Route::get('/gallery/product/{id}', 'ProductController@gallery')->name('product.galleries');
+
+Route::get('/gallery/product/{id}', 'ProductController@gallery')
+    ->name('product.galleries');
+
+Route::get('/transactions/{id}/set-status', 'TransactionController@setStatus')
+    ->name('transactions.status');
+
 Route::resource('/products', 'ProductController');
 Route::resource('/galleries', 'ProductGalleryController');
+Route::resource('/transactions', 'TransactionController');

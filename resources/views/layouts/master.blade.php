@@ -10,6 +10,8 @@
     @include('includes.style')
     @stack('after-style')
 
+    @yield('header')
+
 </head>
 
 <body>
@@ -27,10 +29,13 @@
         <div class="clearfix"></div>
     </div>
     
+    @yield('footer')
+    
     @stack('before-script')
     @include('includes.script')
     @stack('after-script')
 
     @include('sweetalert::alert')
+
 </body>
 </html>

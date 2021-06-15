@@ -21,7 +21,7 @@
                                         <th>Action</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="tableListProduk">
                                     @forelse($products as $product)
                                         <tr>
                                             <td>{{ $product->id }}</td>
@@ -31,17 +31,17 @@
                                             <td>{{ $product->quantity }}</td></td>
                                             <td>
                                                 <a href="{{ route('product.galleries', $product->id) }}" class="btn btn-info btn-sm">
-                                                    <i class="fa fa-picture-o"></i>
+                                                    <i class="fa fa-picture-o "></i>
                                                 </a>
                                                 <a href="{{ route('products.edit', $product->id) }}" class="btn btn-primary btn-sm">
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
                                                 <form   action="{{ route('products.destroy', $product->id) }}" 
                                                         method="post" 
-                                                        class="d-inline">
+                                                        class="d-inline ">
                                                     @csrf
                                                     @method('delete')
-                                                    <button class="btn btn-danger btn-sm">
+                                                    <button class="btn btn-danger btn-sm confirm-delete">
                                                         <i class="fa fa-trash"></i>
                                                     </button>
                                                 </form>
@@ -64,22 +64,24 @@
     </div>
 @endsection
 
-@push('after-script')
+@section('footer')
 <script>
     $(document).ready(function(){
-        $('.confirm-delete').on('click', function (event) {
-            event.preventDefault();
-            const url = $(this).attr('href');
-            swal({
-                title: 'Apakah anda yakin?',
-                text: 'Produk ini akan terhapus secara permanen!',
-                icon: 'warning',
-                buttons: ["Batal", "Ya!"],
-            }).then(function(value) {
-                if (value) {
-                    window.location.href = url;
-                }
-            });
+        $('#tableListProduk').on('click', '.confirm-delete', function () {
+            alert('kena deh');
+            // event.preventDefault();
+            // const url = $(this).attr('href');
+            // swal({
+            //     title: 'Apakah anda yakin?',
+            //     text: 'Produk ini akan terhapus secara permanen!',
+            //     icon: 'warning',
+            //     buttons: ["Batal", "Ya!"],
+            // }).then(function(value) {
+            //     if (value) {
+            //         window.location.href = url;
+            //     }
+            // });
         });        
     });
 </script>
+@endsection
