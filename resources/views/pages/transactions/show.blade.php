@@ -38,13 +38,15 @@
                 <tr>
                     <th>Nama</th>
                     <th>Tipe</th>
+                    <th>Jumlah</th>
                     <th>Harga</th>
                 </tr>
                 @foreach($item->details as $detail)
                     <tr>
                         <td>{{ $detail->product->name }}</td>
                         <td>{{ $detail->product->type }}</td>
-                        <td>Rp. {{ $detail->product->price }}</td>
+                        <td>{{ $detail->qty }}</td>
+                        <td>Rp. {{ $detail->sub_total }}</td>
                     </tr>
                 @endforeach
             </table>

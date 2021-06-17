@@ -61,7 +61,7 @@ class TransactionController extends Controller
         // Panggil relasi details di model Transaction lalu
         // panggil lagi relasi product dari model Transaction Detail
         $item = Transaction::with('details.product')->findOrFail($id);
-        
+
         return view('pages.transactions.show', compact(
             'item'
         ));
